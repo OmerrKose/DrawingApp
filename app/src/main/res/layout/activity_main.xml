@@ -156,6 +156,15 @@
             android:src="@drawable/ic_gallery" />
 
         <ImageButton
+            android:id="@+id/imageButtonUndo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/undoImage"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_undo" />
+
+        <ImageButton
             android:id="@+id/imageButtonBrush"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -163,6 +172,15 @@
             android:contentDescription="@string/brushImage"
             android:scaleType="fitXY"
             android:src="@drawable/ic_brush" />
+
+        <ImageButton
+            android:id="@+id/imageButtonSave"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:contentDescription="@string/saveImage"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_save" />
 
     </LinearLayout>
 

@@ -5,4 +5,6 @@
     <string name="colorPallet">colorPallet</string>
     <string name="backgroundImage">backgroundImage</string>
     <string name="galleryImage">galleryImage</string>
+    <string name="undoImage">undoImage</string>
+    <string name="saveImage">saveImage</string>
 </resources>

@@ -16,6 +16,7 @@ class DrawingView(context: Context, attributes: AttributeSet) : View(context, at
     private var canvas: Canvas? = null
     private var color = Color.BLACK
     private val myPaths = ArrayList<CustomPath>()
+    private val myUndoPaths = ArrayList<CustomPath>()
 
     init {
         setUpDrawing()
@@ -30,6 +31,16 @@ class DrawingView(context: Context, attributes: AttributeSet) : View(context, at
         myDrawingPaint!!.strokeCap = Paint.Cap.ROUND
         myCanvasPaint = Paint(Paint.DITHER_FLAG)
         myDrawingPath = CustomPath(color, myBrushSize)
+    }
+
+    // Undo function
+    fun onClickUndo() {
+        // If the path is larger than 1
+        if (myPaths.size > 0) {
+            // Remove the last element of the array
+            myUndoPaths.add(myPaths.removeAt(myPaths.size - 1))
+            invalidate()
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -75,7 +86,8 @@ class DrawingView(context: Context, attributes: AttributeSet) : View(context, at
                     if (touchY != null) {
                         myDrawingPath!!.moveTo(
                             touchX,
-                            touchY)
+                            touchY
+                        )
                     }
                 }
             }
