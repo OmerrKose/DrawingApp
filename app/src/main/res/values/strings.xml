@@ -7,4 +7,5 @@
     <string name="galleryImage">galleryImage</string>
     <string name="undoImage">undoImage</string>
     <string name="saveImage">saveImage</string>
+    <string name="shareImage">shareImage</string>
 </resources>

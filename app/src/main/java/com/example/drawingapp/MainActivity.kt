@@ -8,6 +8,7 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.media.Image
+import android.media.MediaScannerConnection
 import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -70,7 +71,7 @@ class MainActivity : AppCompatActivity() {
             drawingView.onClickUndo()
         }
 
-        // Save button Implementation
+        // Save button implementation
         val imageButtonSave = findViewById<ImageButton>(R.id.imageButtonSave)
         imageButtonSave.setOnClickListener {
             if (isReadStorageAllowed()) {
@@ -304,6 +305,18 @@ class MainActivity : AppCompatActivity() {
                     "File could not be saved.",
                     Toast.LENGTH_SHORT
                 ).show()
+            }
+            MediaScannerConnection.scanFile(this@MainActivity, arrayOf(result), null) { path, uri ->
+                val shareIntent = Intent()
+                shareIntent.action = Intent.ACTION_SEND
+                shareIntent.putExtra(Intent.EXTRA_STREAM, uri)
+                shareIntent.type = "image/png"
+
+                startActivity(
+                    Intent.createChooser(
+                        shareIntent, "Share"
+                    )
+                )
             }
         }
 
