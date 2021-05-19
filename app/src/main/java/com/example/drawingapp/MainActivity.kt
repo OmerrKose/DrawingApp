@@ -254,8 +254,11 @@ class MainActivity : AppCompatActivity() {
     // Function to save the painting simultaneously as Bitmap in order to save it faster
     private inner class BitmapAsyncTask(val myBitmap: Bitmap) :
         AsyncTask<Any, Void, String>() {
+
+        private lateinit var myProgressDialog: Dialog
+
         override fun doInBackground(vararg params: Any?): String {
-            var result =  ""
+            var result = ""
             try {
                 // Compress the file to be stored
                 val bytes = ByteArrayOutputStream()
@@ -273,7 +276,7 @@ class MainActivity : AppCompatActivity() {
                 fileOut.write(bytes.toByteArray())
                 fileOut.close()
                 result = file.absolutePath
-            } catch (e : Exception) {
+            } catch (e: Exception) {
                 result = ""
                 e.printStackTrace()
             }
@@ -281,8 +284,14 @@ class MainActivity : AppCompatActivity() {
             return result
         }
 
+        override fun onPreExecute() {
+            super.onPreExecute()
+            showProgressDialog()
+        }
+
         override fun onPostExecute(result: String?) {
             super.onPostExecute(result)
+            cancelProgressDialog()
             if (result!!.isNotEmpty()) {
                 Toast.makeText(
                     this@MainActivity,
@@ -296,6 +305,18 @@ class MainActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        // Function to display the progress bar while waiting
+        private fun showProgressDialog() {
+            myProgressDialog = Dialog(this@MainActivity)
+            myProgressDialog.setContentView(R.layout.dialog_custom_process)
+            myProgressDialog.show()
+        }
+
+        // Function to close the progress bar
+        private fun cancelProgressDialog() {
+            myProgressDialog.dismiss()
         }
 
     }
